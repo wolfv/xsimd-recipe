@@ -1,0 +1,44 @@
+{% set name = "xsimd" %}
+{% set version = "4.0.0" %}
+{% set sha256 = "67b818601c15ef15ea4d611a8cd7382588c340ebd9146c799a0210d212540455" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/QuantStack/xsimd/archive/{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - toolchain
+    - cmake
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/xsimd/xsimd.hpp  # [unix]
+    - test -f ${PREFIX}/lib/cmake/xsimd/xsimdConfig.cmake  # [unix]
+    - test -f ${PREFIX}/lib/cmake/xsimd/xsimdConfigVersion.cmake  # [unix]
+    - if exist %LIBRARY_PREFIX%\include\xsimd\xsimd.hpp (exit 0) else (exit 1)  # [win]
+    - if exist %LIBRARY_PREFIX%\lib\cmake\xsimdConfig.cmake (exit 0) else (exit 1)  # [win]
+    - if exist %LIBRARY_PREFIX%\lib\cmake\xsimdConfigVersion.cmake (exit 0) else (exit 1)  # [win]
+
+about:
+  home: http://quantstack.net/xsimd
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: 'C++ Wrappers for SIMD Intrinsices'
+  description: 'High-level APIs for SIMD operations'
+  doc_url: http://xsimd.readthedocs.io
+  dev_url: https://github.com/QuantStack/xsimd
+
+extra:
+  recipe-maintainers:
+    - SylvainCorlay
+    - JohanMabille

@@ -12,8 +12,6 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  features:
-    - vc14  # [win]
   number: 0
   skip: true  # [win and py<35]
 
@@ -21,8 +19,6 @@ requirements:
   build:
     - toolchain
     - cmake
-  run:
-    - vc 14  # [win]
 
 test:
   commands:
